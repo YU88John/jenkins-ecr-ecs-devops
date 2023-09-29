@@ -1,10 +1,6 @@
-sudo mv /etc/yum.repos.d/fedora-updates.repo /tmp/
-sudo mv /etc/yum.repos.d/fedora-updates-modular.repo /tmp/
-sudo yum clean all
-#sudo yum update
 TOMURL="https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.75/bin/apache-tomcat-9.0.75.tar.gz"
-yum install java-11-openjdk java-11-openjdk-devel -y
-yum install git maven wget -y
+dnf -y install java-11-openjdk java-11-openjdk-devel
+dnf install git maven wget -y
 cd /tmp/
 wget $TOMURL -O tomcatbin.tar.gz
 EXTOUT=`tar xzvf tomcatbin.tar.gz`
@@ -54,10 +50,12 @@ git clone -b main https://github.com/hkhcoder/vprofile-project.git
 cd vprofile-project
 mvn install
 systemctl stop tomcat
-sleep 60
+sleep 20
 rm -rf /usr/local/tomcat/webapps/ROOT*
 cp target/vprofile-v2.war /usr/local/tomcat/webapps/ROOT.war
 systemctl start tomcat
-firewall-cmd --add-port=8080/tcp --permanent
-firewall-cmd --reload
+sleep 20
+systemctl stop firewalld
+systemctl disable firewalld
+#cp /vagrant/application.properties /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/application.properties
 systemctl restart tomcat
