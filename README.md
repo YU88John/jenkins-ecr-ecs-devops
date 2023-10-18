@@ -1,9 +1,13 @@
-# Prerequisites
+# About the project
+This project is derived from Imran Teli's udemy course(DevOps from beginner to advanced). An application source code is pulled from the course repository in order to focus on the construction of CI/CD pipeline rather than on application development.
+Below are the steps to setup the environment and test accordingly.
+
+## Prerequisites
 1. An AWS account 
 2. Basic knowledge of containerization
 3. Time commitment
 
-# Technologies 
+## Technologies 
 - Spring
 - Maven
 - Jenkins
