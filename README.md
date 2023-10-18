@@ -1,25 +1,25 @@
 # Prerequisites
-#
-- JDK 11 
-- Maven 3 
-- MySQL 8
+1. An AWS account 
+2. Basic knowledge of containerization
+3. Time commitment
 
 # Technologies 
-- Spring MVC
-- Spring Security
-- Spring Data JPA
+- Spring
 - Maven
-- JSP
-- Tomcat
-- MySQL
-- Memcached
-- Rabbitmq
-- ElasticSearch
-# Database
-Here,we used Mysql DB 
-sql dump file:
-- /src/main/resources/db_backup.sql
-- db_backup.sql file is a mysql dump file.we have to import this dump to mysql db server
-- > mysql -u <user_name> -p accounts < db_backup.sql
+- Jenkins
+- SonarQube
+- Nexus
+- Docker
+- ECR
+
+### Clone the repository into your local machine 
+
+`git clone https://github.com/YU88John/vprofile_test.git`
+
+### Launch EC2 instances for Jenkins, SonarQube and Nexus 
+
+instance type: t2-medium
+In Advanced Options > userdata, please copy the user data provided in the userdata folder for each instance respectively. 
+
 
 
