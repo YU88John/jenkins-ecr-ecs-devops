@@ -28,7 +28,7 @@ In Advanced Options > userdata, please copy the user data provided in the userda
 **Note** - If you have decided to do local SSH, please create key-pairs for each server.
 
 #### Security Group Configuration
-You will need to open these ports on the security group of each instance. If you want to SSH from local machine, you will need to open port `22` as well. Otherwise, you can perform this with EC2 instance connect as well.
+You will need to open these ports on the security group of each instance. If you want to SSH from local machine, you will need to open port `22` too. However, you can perform this with EC2 instance connect as well.
 
 Jenkins: 8080, 22
 SonarQube: 9000
