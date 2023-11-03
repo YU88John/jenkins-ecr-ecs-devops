@@ -4,17 +4,17 @@
 
 ### Launch EC2 instances for Jenkins, SonarQube and Nexus 
 
-Instance type: t2-medium
-AMI: Amazon Linux2
+Instance type: `t2-medium`
+AMI: `Amazon Linux2`
 In Advanced Options > userdata, please copy the user data provided in the userdata folder for each instance respectively. (This will be updated every month to accommodate any releases)
 **Note** - If you have decided to do local SSH, please create key-pairs for each server.
 
 #### 2. Security Group Configuration
 You will need to open these ports on the security group of each instance. If you want to SSH from local machine, you will need to open port `22` too. However, you can perform this with EC2 instance connect as well.
 
-Jenkins: 8080, 22
-SonarQube: 9000
-Nexus: 8081
+- Jenkins: `8080, 22`
+- SonarQube: `9000`
+- Nexus: `8081`
 
 We need to open these ports for browser(UI) access. Each service runs on above-mentioned ports respectively.
 
@@ -62,8 +62,7 @@ Ensure the step by creating a new pipeline with the code provided in *Jenkinsfil
 ### 5. Setup Nexus Artifact repository
 
 Sign in to the Nexus UI using its public IP on port `8081`. Use the default credentials below. (It may ask you to change the password)
-`Username: admin`
-`Password: admin123`
+`Username: admin` , `Password: admin123`
 
 
 
