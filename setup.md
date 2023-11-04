@@ -21,13 +21,13 @@ We need to open these ports for browser(UI) access. Each service runs on above-m
 ### 3. Setup Jenkins 
 
 After Jenkins server is running, try `SSH` it from your local machine via Git Bash or any other unix cli. 
-Please ensure Jenkins server is installed with this command: `sudo systemctl status jenkins` 
+Please ensure Jenkins server is installed with this command: `sudo systemctl status jenkins`. <br>
 Once it shows **RUNNING** you are good to go. 
 In case if things go wrong and Jenkins server is not up and running, please install it manually using this documentation: https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
 
 Log in to the Jenkins UI with its public IP on port `8080`.
 It will show the path where you can get the Administrator password to unlock Jenkins. (`/var/jenkins_home/secrets/initialAdminPassword`).
-Copy the path it mentioned, go back to the `SSH` session, and run `sudo cat <PATH_TO_PASSWORD>`
+Copy the path it mentioned, go back to the `SSH` session, and run `sudo cat <PATH_TO_PASSWORD>`.
 
 **Required Plugins to install in Jenkins**
 - Nexus Artifact Uploader
@@ -35,9 +35,9 @@ Copy the path it mentioned, go back to the `SSH` session, and run `sudo cat <PAT
 - Build Timestamp
 - Pipeline Maven Integration
 
-**For integration with SonarQube**
-Under Manage Jenkins - 
-Tools > SonarQube Scanner > Install automatically (Please select the latest version, and ensure you remember the name you give)
+**For integration with SonarQube** <br>
+Under Manage Jenkins - <br>
+Tools > SonarQube Scanner > Install automatically (Please select the latest version, and ensure you remember the name you give) <br>
 Configure System > Add SonarQube Server (In the server URL, paste the Private IP of SonarQube instance prefixed by `http://`) 
   - Since we are using the private connection, we need some form of authentication
   - We will add a token for that authentication
