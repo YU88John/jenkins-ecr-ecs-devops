@@ -4,10 +4,10 @@
 
 ### 2. Launch EC2 instances for Jenkins, SonarQube and Nexus + Configure Security Groups
 
-Instance type: `t2-medium`
+Instance type: `t2-medium` <br>
 AMI: `Amazon Linux2`
 
-In **Advanced Options > userdata**, please copy the user data provided in the userdata folder for each instance respectively. (This will be updated often to accommodate any major releases)
+In **Advanced Options > userdata**, please copy the user data provided in the userdata folder for each instance respectively. (This will be updated often to accommodate any major releases) <br>
 **Note** - If you have decided to do local `SSH`, please create key-pairs for each server.
 
 You will need to open these ports on the security group of each instance. If you want to SSH from local machine, you will need to open port `22` too. However, you can perform this with EC2 instance connect as well.
@@ -26,8 +26,8 @@ Once it shows **RUNNING** you are good to go.
 In case if things go wrong and Jenkins server is not up and running, please install it manually using this documentation: https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
 
 Log in to the Jenkins UI with its public IP on port `8080`.
-It will show the path where you can get the Administrator password to unlock Jenkins. (`/var/jenkins_home/secrets/initialAdminPassword`).
-Copy the path it mentioned, go back to the `SSH` session, and run `sudo cat <PATH_TO_PASSWORD>`.
+It will show the path where you can get the Administrator password to unlock Jenkins. (`/var/jenkins_home/secrets/initialAdminPassword`). <br>
+Copy the path it mentioned, go back to the `SSH` session, and run `sudo cat <PATH_TO_PASSWORD>`. <br>
 
 **Required Plugins to install in Jenkins**
 - Nexus Artifact Uploader
@@ -58,16 +58,17 @@ Quality Gates > Create
 
 After creating, go to your project > Project Settings > Quality Gate and choose your newly created QG
 
-For the Quality Gate to check the code used in our build, we need to create a webhook for Jenkins server and configure networking.
-Project Settings > Create Webhook > URL (`http://<JENKINS_PRIVATE_IP>:8080/sonarqube-webhook`)
+For the Quality Gate to check the code used in our build, we need to create a webhook for Jenkins server and configure networking. <br>
+Project Settings > Create Webhook > URL (`http://<JENKINS_PRIVATE_IP>:8080/sonarqube-webhook`) <br>
 Go back to AWS console. Add a new inbound rule in Jenkins Security Group, which allows traffic from SonarQube SG on port `8080`.
 
 Ensure the step by creating a new pipeline with the code provided in *JenkinsfileSQqg*. If the Quality Gate build stage fails, adjust the operator of the Quality Gates based on the results. (eg. If the bugs is 70, increase the operator to a greater value than 70).
 
 ### 5. Setup Nexus Artifact repository
 
-Sign in to the Nexus UI using its public IP on port `8081`. Use the default credentials below. (It may ask you to change the password)
-`Username: admin` , `Password: admin123`
+Sign in to the Nexus UI using its public IP on port `8081`. Use the default credentials below. (It may ask you to change the password) <br>
+`Username: admin` <br>
+`Password: admin123`
 
 
 
