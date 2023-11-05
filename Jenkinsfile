@@ -9,22 +9,22 @@ pipeline {
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "172.31.40.209:8081"
-        NEXUS_REPOSITORY = "vprofile-release"
-	NEXUS_REPOGRP_ID    = "vprofile-grp-repo"
+        NEXUS_URL = "<NEXUS_PRIVATE_IP>:8081"
+        NEXUS_REPOSITORY = "<REPO_NAME>"
+	NEXUS_REPOGRP_ID    = "<REPO_ID>"
         NEXUS_CREDENTIAL_ID = "nexuslogin"
         ARTVERSION = "${env.BUILD_ID}"
     }
 	
     stages{
         
-        stage('BUILD'){
+        stage('MVN BUILD'){
             steps {
                 sh 'mvn clean install -DskipTests'
             }
             post {
                 success {
-                    echo 'Now Archiving...'
+                    echo 'Archiving files...'
                     archiveArtifacts artifacts: '**/target/*.war'
                 }
             }
@@ -53,7 +53,7 @@ pipeline {
             }
         }
 
-        stage('CODE ANALYSIS with SONARQUBE') {
+        stage('CODE ANALYSIS - SONARQUBE') {
           
 		  environment {
              scannerHome = tool 'sonarscanner4'
