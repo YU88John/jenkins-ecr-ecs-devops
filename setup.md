@@ -1,3 +1,7 @@
+### Construction brief
+
+We have multiple components involved in this pipeline. To integrate each of them successfully, we will test the pipeline everytime we configure a new component.
+
 ### 1. Clone the repository into your local machine 
 
 `git clone https://github.com/YU88John/vprofile_test.git`
@@ -23,7 +27,7 @@ We need to open these ports for browser(UI) access. Each service runs on above-m
 After Jenkins server is running, try `SSH` it from your local machine via Git Bash or any other unix cli. 
 Please ensure Jenkins server is installed with this command: `sudo systemctl status jenkins`. <br>
 Once it shows **RUNNING** you are good to go. 
-In case if things go wrong and Jenkins server is not up and running, please install it manually using this documentation: https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
+In case things go wrong and Jenkins server is not up and running, please install it manually using this documentation: https://www.jenkins.io/doc/book/installing/linux/#debianubuntu
 
 Log in to the Jenkins UI with its public IP on port `8080`.
 It will show the path where you can get the Administrator password to unlock Jenkins. (`/var/jenkins_home/secrets/initialAdminPassword`). <br>
@@ -45,7 +49,14 @@ Configure System > Add SonarQube Server (In the server URL, paste the Private IP
   - In SonarQube UI > My account > Tokens > Generate Token (just name it *Jenkins* for classification) Please note the token somewhere safe 
   - Go back to Jenkins UI and add the token as *Secret Text*
 
-We have successfully integrated Jenkins with SonarQube. If you want to ensure, you can test it by creating a pipeline using the code from *JenkinsfileSQ*. After this you will see your project in SonarQube as well as its status - **Passed**. This will also make it easier to associate the Quality Gates to the Jenkins project. 
+We have successfully integrated Jenkins with SonarQube. To ensure this, you can test it by creating a pipeline using the code from *JenkinsfileSQ*. After this you will see your project in SonarQube as well as its status - **Passed**. This will also make it easier to associate the Quality Gates to the Jenkins project. 
+
+**For integration with Nexus** <br>
+Manage Jenkins > Manage Credentials > Jenkins > Add Global credentials (kind: Username with Password, fill in your Nexus credentials). <br>
+For the version naming, we will simply use Build Timestamp plugin. <br>
+Manage Jenkins > Configure System > Global Properties > Build Timestamp > Enable (configure with your preferred layout)
+
+We have successfully integrated Jenkins with Nexus Artifact Repository. To ensure this, you can test it by creating a pipeling using the code from *JenkinsfileNX*. Make sure to replace the placeholders with your actual values.
 
 ### 4. Create Quality Gates in SonarQube Scanner 
 
@@ -69,6 +80,11 @@ Ensure the step by creating a new pipeline with the code provided in *Jenkinsfil
 Sign in to the Nexus UI using its public IP on port `8081`. Use the default credentials below. (It may ask you to change the password) <br>
 `Username: admin` <br>
 `Password: admin123`
+
+Create a new repository which uses `maven2(hosted)` as recipe. To push the artifacts to this repository, we need to configure credentials in Jenkins. <br>
+
+
+
 
 
 
