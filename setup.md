@@ -42,7 +42,8 @@ Copy the path it mentioned, go back to the `SSH` session, and run `sudo cat <PAT
 #### Integrations 
 Integrations have two parts: 
 - Jenkins configuration
-- Integrating servers configuration <br>
+- Integrating servers configuration
+
 For the first part, you can find just below this context. To configure the integrating servers, there are instructions provided in respective topics below.
 
 **For integration with SonarQube** <br>
