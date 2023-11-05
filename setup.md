@@ -39,6 +39,12 @@ Copy the path it mentioned, go back to the `SSH` session, and run `sudo cat <PAT
 - Build Timestamp
 - Pipeline Maven Integration
 
+#### Integrations 
+Integrations have two parts: 
+- Jenkins configuration
+- Integrating servers configuration <br>
+For the first part, you can find just below this context. To configure the integrating servers, there are instructions provided in respective topics below.
+
 **For integration with SonarQube** <br>
 Under Manage Jenkins - <br>
 Tools > SonarQube Scanner > Install automatically (Please select the latest version, and ensure you remember the name you give) <br>
@@ -56,7 +62,8 @@ Manage Jenkins > Manage Credentials > Jenkins > Add Global credentials (kind: Us
 For the version naming, we will simply use Build Timestamp plugin. <br>
 Manage Jenkins > Configure System > Global Properties > Build Timestamp > Enable (configure with your preferred layout)
 
-We have successfully integrated Jenkins with Nexus Artifact Repository. To ensure this, you can test it by creating a pipeling using the code from *JenkinsfileNX*. Make sure to replace the placeholders with your actual values.
+We have successfully integrated Jenkins with Nexus Artifact Repository. To ensure this, you can test it by creating a pipeling using the code from *JenkinsfileNX*. Make sure to replace the placeholders with your actual values. <br>
+After a successful build, you will see your artifact uploaded to your repository. If you build again, there will be another different artifact with different timestamp. 
 
 ### 4. Create Quality Gates in SonarQube Scanner 
 
