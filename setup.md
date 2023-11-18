@@ -1,6 +1,8 @@
 ### Construction brief
 
-We have multiple components involved in this pipeline. To integrate each of them successfully, we will test the pipeline everytime we configure a new component.
+We have multiple components involved in this pipeline. To integrate each of them successfully, we will test the pipeline everytime we configure a new component. <br>
+
+The pipeline codes for each integration is located inside `/Jenkins-test-codes` folder of this repository.
 
 ### 1. Clone the repository into your local machine 
 
@@ -9,23 +11,31 @@ git clone https://github.com/YU88John/vprofile_test.git
 ```
 ### 2. Launch EC2 instances for Jenkins, SonarQube and Nexus + Configure Security Groups
 
-Instance type: `t2-medium` <br>
+#### Console
+
+Instance type: `t2.medium` <br>
 AMI: `Amazon Linux2`
 
-In **Advanced Options > userdata**, please copy the user data provided in the userdata folder for each instance respectively. (This will be updated often to accommodate any major releases) <br>
+In `Advanced Options` > `userdata`, please copy the user data provided in the `/userdata` folder for each instance respectively. <br>
 *Note:* If you have decided to do local `SSH`, please create key-pairs for each server.
 
 You will need to open these ports on the security group of each instance. If you want to SSH from local machine, you will need to open port `22` too. However, you can perform this action with EC2 instance connect as well.
 
 - Jenkins: `8080, 22`
-- SonarQube: `9000`
-- Nexus: `8081`
+- SonarQube: `9000, 22`
+- Nexus: `8081, 22`
 
 We need to open these ports for browser(UI) access. Each service runs on above-mentioned ports respectively.
 
+#### Terraform
+
+Alternatively, you can create the required instances with terraform. The configuration files are located in `/terraform` folder of this repository. You can read more about Terraform with aws <a href="https://registry.terraform.io/providers/hashicorp/aws/3.9.0/docs">here</a>. <br>
+
+*Note:* You need to supply your own public key in plain text or file path if you plan to create resources with terraform. Please replace the `aws_key_pair` resource values accordingly.
+
 ### 3. Setup Jenkins 
 
-After Jenkins server is running, try `SSH` it from your local machine via Git Bash or any other unix cli. 
+After Jenkins server is running, try `SSH` it from your local machine via `Git Bash` or any other unix cli. 
 Please ensure Jenkins server is installed
 ```
 sudo systemctl status jenkins
@@ -69,16 +79,16 @@ Under `Manage Jenkins`: <br>
   - In `SonarQube UI` > `My account` > `Tokens` > `Generate Token` (just name it `Jenkins` for classification) Please note the token somewhere safe 
   - Go back to Jenkins UI and add the token as `Secret Text`
 
-We have successfully integrated Jenkins with SonarQube. To ensure this, you can test it by creating a pipeline using the code from `JenkinsfileSQ.groovy`. After this you will see your project in SonarQube as well as its status - **Passed**. This will also make it easier to associate the Quality Gates to the Jenkins project.
+We have successfully integrated Jenkins with SonarQube. To ensure this, you can test it by creating a pipeline using the code from `JenkinsfileSQ.groovy`. After this you will see your project in SonarQube as well as its status - `Passed`. 
 
-Code Analysis alone is not enough for production-ready deployment. We need to ensure the source code always meets our desired standards before it proceeds to deployment stage. SonarQube itself has default Quality Gate but **One size never fits all**. For this, we can setup our custom Quality Gates in SonarQube. This is a DevSecOps practice but I will include this in our DevOps pipeline.
+Code Analysis alone is not enough for production-grade deployment. We need to ensure the source code always meets our desired standards before it proceeds to deployment stage. SonarQube itself has default Quality Gate but **One size never fits all**. For this, we can setup our custom Quality Gates in SonarQube. This is a DevSecOps practice but I will include this in our DevOps pipeline.
 
-Quality Gates > Create 
-- We will set the QG on overall code
-- The condition will be **Bugs** 
-- For operator - Greater than 60
+`Quality Gates` > `Create` 
+- We will set the QG on `overall code`
+- The condition will be `Bugs`
+- For operator - `Greater than 60`
 
-After creating, go to your project > Project Settings > Quality Gate and choose your newly created QG
+After creating, go to your project > `Project Settings` > `Quality Gate` and choose your newly created QG
 
 For the Quality Gate to check the code used in our build, we need to create a webhook for Jenkins server and configure networking. <br>
 `Project Settings` > `Create Webhook` > `URL` (`http://<JENKINS_PRIVATE_IP>:8080/sonarqube-webhook`) <br>
@@ -277,6 +287,11 @@ git push origin main
 ```
 
 As soon as you pushed the text file to the `main` branch, it will trigger Jenkins to build the pipeline. This also triggers all the sequential events, finally deploying the application to AWS ECS cluster.
+
+Jenkins is also rich of other features, such as Scheduled based and remote triggers. You can test these features under `Build Triggers`. I will also try to develop a detailed documentation to test `Remote Triggers`, which is a very useful feature.
+
+***
+## Project Outcomes
 
 In this project, we learned how to build a Jenkins pipeline that got triggered by every push event to the `main` branch of the repository. We also learnt how important it is to ensure the quality of the code before deploying it to the production workloads. <br> 
 
