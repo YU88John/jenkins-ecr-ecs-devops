@@ -12,21 +12,30 @@ In this project, we will construct a CI/CD pipeline with Jenkins, to deploy a Ja
 1. An AWS account 
 2. Basic knowledge of containerization 
 3. Familiarity with scripting/programming
+4. Terraform (optional)
 
 
 ## Technologies 
 - Java Spring
+- Terraform
 - Maven
 - Jenkins
 - SonarQube
 - Nexus
+- Git
 - Docker
 - ECR
 - ECS
 
-**The instruction steps to setup the project are provided in setup.md**
-If you face any issues whilst performing this project, feel free to contact via: mtkforstudy.john86@gmail.com. I will try my best to response as soon as possible with the solution.
+## Project Structure 
+- `setup.md`: How to set up the project
+- `/terraform`: Terraform files 
+- `/Jenkins-test-codes`: Pipeline integration codes
+- `/userdata`: User data for EC2 instances
 
+
+
+If you face any issues whilst performing this project, feel free to contact via: mtkforstudy.john86@gmail.com. 
 
 
 
