@@ -1,7 +1,7 @@
 variable "ami_id" {
     type = string
     description = "The AMI ID to use for servers"
-    default = "ami-0fa1ca9559f1892ec"
+    default = "ami-0fc5d935ebf8bc3bc"
 }
 
 variable "instance_size" {
