@@ -14,7 +14,7 @@ git clone https://github.com/YU88John/vprofile_test.git
 #### Console
 
 Instance type: `t2.medium` <br>
-AMI: `Amazon Linux2`
+AMI: `Ubuntu 22.04`
 
 In `Advanced Options` > `userdata`, please copy the user data provided in the `/userdata` folder for each instance respectively. <br>
 *Note:* If you have decided to do local `SSH`, please create key-pairs for each server.
